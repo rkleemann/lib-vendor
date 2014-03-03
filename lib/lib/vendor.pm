@@ -1,6 +1,6 @@
-use v5.18;
-
 package lib::vendor;
+
+use strict;
 
 use Cwd         ();
 use FindBin     ();
