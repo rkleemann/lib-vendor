@@ -1,4 +1,5 @@
 use v5.18;
+use warnings;
 
 package lib::vendor;
 
