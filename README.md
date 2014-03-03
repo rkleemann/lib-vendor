@@ -1,4 +1,0 @@
-lib--vendor
-===========
-
-lib::vendor
