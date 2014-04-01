@@ -22,7 +22,7 @@ use File::Spec  ();
 
 our $APPDIR;
 BEGIN {
-    ( $APPDIR = $FindBin::RealBin ) =~ s!bin/$!! unless $APPDIR;
+    ( $APPDIR = $FindBin::RealBin ) =~ s!/bin$!! unless $APPDIR;
 }
 
 sub import {
