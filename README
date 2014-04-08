@@ -1,7 +1,7 @@
 
 
 This archive contains the distribution lib-vendor,
-version 0.001:
+version 0.002:
 
   add vendor libraries to the module search path
 
