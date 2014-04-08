@@ -6,16 +6,35 @@ use Cwd         ();
 use FindBin     ();
 use File::Spec  ();
 
+# File layout could be:
+# .
+# +- bin
+# +- lib
+# +- vendor
+# +- ...
+#
+# Or:
+#
+# .
+# +- lib
+# +- vendor
+# +- ...
+
+our $APPDIR;
+BEGIN {
+    ( $APPDIR = $FindBin::RealBin ) =~ s!/bin$!! unless $APPDIR;
+}
+
 sub import {
     my ( $package, @vendors ) = @_;
 
     for my $vendor (@vendors) {
         $vendor = Cwd::abs_path(
-            File::Spec->catdir( $FindBin::RealBin, "../vendor/$vendor/lib" )
+            File::Spec->catdir( $APPDIR, "vendor/$vendor/lib" )
         );
     }
     unshift @vendors,
-        Cwd::abs_path( File::Spec->catdir( $FindBin::RealBin, "../lib" ) );
+        Cwd::abs_path( File::Spec->catdir( $APPDIR, "lib" ) );
 
     require lib;
     lib->import(@vendors);
