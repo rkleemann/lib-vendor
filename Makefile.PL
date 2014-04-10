@@ -24,11 +24,10 @@ my %WriteMakefileArgs = (
     "Cwd" => 0,
     "File::Spec" => 0,
     "FindBin" => 0,
-    "lib" => 0,
     "strict" => 0
   },
   "TEST_REQUIRES" => {},
-  "VERSION" => "0.002",
+  "VERSION" => "0.003",
   "test" => {
     "TESTS" => ""
   }
@@ -39,7 +38,6 @@ my %FallbackPrereqs = (
   "Cwd" => 0,
   "File::Spec" => 0,
   "FindBin" => 0,
-  "lib" => 0,
   "strict" => 0
 );
 
