@@ -36,8 +36,25 @@ sub import {
     unshift @vendors,
         Cwd::abs_path( File::Spec->catdir( $APPDIR, "lib" ) );
 
-    require lib;
-    lib->import(@vendors);
+    shrink_INC(@vendors);
+}
+
+sub shrink_INC {
+    my %seen = ();
+    @INC = grep {
+        my $key;
+        if ( ref($_) ) {
+            # If it's a ref, key on the memory address.
+            $key = int $_;
+        } elsif ( my ($dev, $inode) = stat($_) ) {
+            # If it's on the filesystem, key on the combo of dev and inode.
+            $key = join( _ => $dev, $inode );
+        } else {
+            # Otherwise, key on the element.
+            $key = $_;
+        }
+        $key && !$seen{$key}++;
+    } @_, @INC;
 }
 
 1;
