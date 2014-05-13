@@ -80,23 +80,23 @@ __END__
 
 =head1 NAME
 
-lib::vendor - add vendor libraries to the module search path
+lib::vendor - add vendor libraries to the module search path (@INC)
 
 =head1 SYNOPSIS
 
-  # Include only $FindBin::RealBin/../lib in module search path.
+  # Include only $FindBin::RealBin/../lib in module search path (@INC).
   use lib::vendor;
 
 or
 
-  # Include in module search path:
+  # Include in module search path (@INC):
   # $FindBin::RealBin/../lib,
   # $FindBin::RealBin/../vendor/core/lib 
   use lib::vendor qw(core);
 
 or
 
-  # Include in module search path:
+  # Include in module search path (@INC):
   # $FindBin::RealBin/../lib,
   # $FindBin::RealBin/../vendor/core/lib,
   # $FindBin::RealBin/../vendor/common/lib,
