@@ -35,12 +35,18 @@ BEGIN {
     }
 }
 
+our $VENDOR //= 'vendor';
 sub import {
     my ( $package, @vendors ) = @_;
 
+    if ( $vendors[0] eq '-vendor' ) {
+        ( undef, my $vendor, @vendors ) = @vendors;
+        $VENDOR = $vendor if defined $vendor;
+    }
+
     for my $vendor (@vendors) {
         $vendor = Cwd::abs_path(
-            File::Spec->catdir( $APPDIR, "vendor/$vendor/lib" )
+            File::Spec->catdir( $APPDIR, $VENDOR, $vendor, 'lib' )
         );
     }
     unshift @vendors,
@@ -112,6 +118,21 @@ The script home is the directory closest to the original script which has
 a C<lib> subdirectory.  It first searches the directory that the script
 was executed from, then upwards until it finds a directory containing a
 C<lib> subdirectory.
+
+There is an optional configuration value of C<-vendor>, which will configure
+what the vendor directory is.
+
+  use lib::vendor -vendor => 'include', qw( this that );
+  # Include in module search path (@INC):
+  # $FindBin::RealBin/../lib,
+  # $FindBin::RealBin/../include/this,
+  # $FindBin::RealBin/../include/that
+
+  use lib::vendor -vendor => '', qw( this that );
+  # Include in module search path (@INC):
+  # $FindBin::RealBin/../lib,
+  # $FindBin::RealBin/../this,
+  # $FindBin::RealBin/../that
 
 =head1 AUTHOR
 
