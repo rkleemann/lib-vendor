@@ -38,13 +38,15 @@ our $VENDOR //= 'vendor';
 sub import {
     my ( $package, @vendors ) = @_;
 
-    if ( $vendors[0] eq '-vendor' ) {
-        ( undef, my $vendor, @vendors ) = @vendors;
-        $VENDOR = $vendor if defined $vendor;
-    }
+    if ( @vendors ) {
+        if ( defined $vendors[0] && $vendors[0] eq '-vendor' ) {
+            ( undef, my $vendor, @vendors ) = @vendors;
+            $VENDOR = $vendor if defined $vendor;
+        }
 
-    for my $vendor (@vendors) {
-        $vendor = File::Spec->catdir( $APPDIR, $VENDOR, $vendor, 'lib' );
+        for my $vendor (@vendors) {
+            $vendor = File::Spec->catdir( $APPDIR, $VENDOR, $vendor, 'lib' );
+        }
     }
     unshift @vendors, File::Spec->catdir( $APPDIR, "lib" );
 
