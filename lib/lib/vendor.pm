@@ -3,7 +3,6 @@ package lib::vendor;
 
 use strict;
 
-use Cwd         ();
 use FindBin     ();
 use File::Spec  ();
 
@@ -45,12 +44,9 @@ sub import {
     }
 
     for my $vendor (@vendors) {
-        $vendor = Cwd::abs_path(
-            File::Spec->catdir( $APPDIR, $VENDOR, $vendor, 'lib' )
-        );
+        $vendor = File::Spec->catdir( $APPDIR, $VENDOR, $vendor, 'lib' );
     }
-    unshift @vendors,
-        Cwd::abs_path( File::Spec->catdir( $APPDIR, "lib" ) );
+    unshift @vendors, File::Spec->catdir( $APPDIR, "lib" );
 
     shrink_INC(@vendors);
 }
