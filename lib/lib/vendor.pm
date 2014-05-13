@@ -1,5 +1,6 @@
 package lib::vendor;
 
+
 use strict;
 
 use Cwd         ();
