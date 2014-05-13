@@ -23,7 +23,16 @@ use File::Spec  ();
 
 our $APPDIR;
 BEGIN {
-    ( $APPDIR = $FindBin::RealBin ) =~ s!/bin$!! unless $APPDIR;
+    if ( not $APPDIR ) {
+        $APPDIR = $FindBin::RealBin;
+        while ( $APPDIR ne '/' && !-d File::Spec->catdir( $APPDIR, 'lib' ) ) {
+            # Search upwards in the directory structure
+            # until we find a subdirectory named 'lib'.
+            my @appdir = File::Spec->splitdir($APPDIR);
+            pop @appdir;
+            $APPDIR = File::Spec->catdir(@appdir);
+        }
+    }
 }
 
 sub import {
@@ -97,6 +106,11 @@ or
 
 Locates the full path to the script home and adds its lib directory to the
 library search path, plus any vendor library directories specified.
+
+The script home is the directory closest to the original script which has
+a C<lib> subdirectory.  It first searches the directory that the script
+was executed from, then upwards until it finds a directory containing a
+C<lib> subdirectory.
 
 =head1 AUTHOR
 
