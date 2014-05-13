@@ -50,6 +50,7 @@ sub import {
 }
 
 sub shrink_INC {
+    local $_;
     my %seen = ();
     @INC = grep {
         my $key;
