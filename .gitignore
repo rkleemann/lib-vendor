@@ -1,3 +1,4 @@
+.*sw?
 blib/
 .build/
 _build/
