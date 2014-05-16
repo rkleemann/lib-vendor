@@ -1,10 +1,12 @@
 #! /usr/bin/env perl
 
-use Test::More tests => 12;
+use Test::More tests => 13;
 
 ok require lib::vendor, 'Required lib::vendor';
 
-lib::vendor::shrink_INC(@INC);
+my $INC_size = @INC;
+@INC = (@INC, @INC);
+cmp_ok lib::vendor::shrink_INC(), '<=', $INC_size, 'shrink_INC worked';
 
 foreach my $import (
     [],
