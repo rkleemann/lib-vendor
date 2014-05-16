@@ -63,8 +63,9 @@ sub shrink_INC {
         if ( ref($_) ) {
             # If it's a ref, key on the memory address.
             $key = int $_;
-        } elsif ( my ($dev, $inode) = stat($_) ) {
-            # If it's on the filesystem, key on the combo of dev and inode.
+        } elsif ( $^O ne 'MSWin32' and my ($dev, $inode) = stat($_) ) {
+            # If it's on the filesystem, key on the combo of dev and inode,
+            # which is not valid on MSWin32.
             $key = join( _ => $dev, $inode );
         } else {
             # Otherwise, key on the element.
