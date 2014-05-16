@@ -1,3 +1,5 @@
+use v5.10;
+
 package lib::vendor;
 
 
