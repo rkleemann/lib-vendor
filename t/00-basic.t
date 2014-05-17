@@ -10,8 +10,8 @@ cmp_ok lib::vendor::shrink_INC(), '<=', $INC_size, 'shrink_INC worked';
 
 foreach my $import (
     [],
-    [ 't/vendor/alpha/lib', 'alpha' ],
-    [ 't/bravo/lib', -vendor => '', 'bravo' ]
+    [ File::Spec->catdir( qw(t vendor alpha lib) ), 'alpha' ],
+    [ File::Spec->catdir( qw(t bravo lib) ), -vendor => '', 'bravo' ]
 ) {
     my $path = shift @$import;
 
@@ -19,7 +19,8 @@ foreach my $import (
     ok( lib::vendor->import(@$import), 'Import succeeds' );
     my @new_INC = @INC;
 
-    like $INC[0], qr!t/lib$!, "First entry in \@INC has t/lib";
+    my $tlib = File::Spec->catdir( qw(t lib) );
+    like $INC[0], qr!\Q$tlib\E$!, "First entry in \@INC has t/lib";
 
     if ( $path ) {
         like $INC[1], qr!$path$!, "Next entry in \@INC has $path";
