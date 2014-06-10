@@ -1,7 +1,8 @@
 use v5.10;
 
 package lib::vendor;
-
+# ABSTRACT: add vendor libraries to the module search path (@INC)
+# VERSION
 
 use strict;
 
@@ -79,10 +80,6 @@ sub shrink_INC {
 
 __END__
 
-=head1 NAME
-
-lib::vendor - add vendor libraries to the module search path (@INC)
-
 =head1 SYNOPSIS
 
   # Include only $FindBin::RealBin/../lib in module search path (@INC).
@@ -134,10 +131,6 @@ what the vendor directory is.
   # $FindBin::RealBin/../lib,
   # $FindBin::RealBin/../this,
   # $FindBin::RealBin/../that
-
-=head1 AUTHOR
-
-Bob Kleemann
 
 =head1 SEE ALSO
 

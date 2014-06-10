@@ -1,0 +1,6 @@
+Revision history for lib::vendor.
+
+{{$NEXT}}
+
+ - Updated to use several Dist::Zilla features and plugins.
+
